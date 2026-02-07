@@ -28,49 +28,63 @@ body {
     width: 90%;
     max-width: 360px;
     box-shadow: 0 0 30px rgba(255,77,109,0.4);
-    z-index: 2;
+    z-index: 1;
 }
 
 h1 {
     color: #ff6b8a;
 }
 
-button {
+p {
+    font-size: 18px;
+}
+
+/* Buttons wrapper */
+.btn-wrap {
+    margin-top: 20px;
+    position: relative;
+    height: 60px;
+}
+
+/* YES button */
+#yesBtn {
     padding: 14px 28px;
     font-size: 18px;
     border-radius: 30px;
     border: none;
     cursor: pointer;
-}
-
-/* YES */
-#yesBtn {
     background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
     color: white;
-    margin-right: 15px;
 }
 
-/* NO */
+/* NO button */
 #noBtn {
+    padding: 14px 28px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
     background: #333;
     color: #aaa;
-    position: fixed;   /* VERY IMPORTANT */
-    left: 55%;
-    top: 55%;
+    position: absolute;
+    left: 160px;
+    top: 0;
 }
 
 /* Love message */
 #loveText {
     display: none;
-    margin-top: 20px;
+    margin-top: 25px;
     color: #ffb3c6;
     line-height: 1.6;
+    font-size: 16px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- Music -->
 <audio id="bgMusic" loop>
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6c1fd6a9b6.mp3" type="audio/mpeg">
 </audio>
@@ -79,8 +93,10 @@ button {
     <h1>Happy Valentine’s 💖</h1>
     <p>Will you be my girlfriend?</p>
 
-    <button id="yesBtn">Yes ❤️</button>
-    <button id="noBtn">No 🙈</button>
+    <div class="btn-wrap">
+        <button id="yesBtn">Yes ❤️</button>
+        <button id="noBtn">No 🙈</button>
+    </div>
 
     <div id="loveText">
         💕 I love you so much my sweetest Aashu, my pucchu.<br>
@@ -95,26 +111,28 @@ const yesBtn = document.getElementById("yesBtn");
 const loveText = document.getElementById("loveText");
 const music = document.getElementById("bgMusic");
 
-function runAway() {
-    const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHeight - 60);
+/* NO button runs away */
+function moveNo() {
+    const x = Math.random() * 200;
+    const y = Math.random() * 40;
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
 
-/* DESKTOP */
-noBtn.addEventListener("mouseenter", runAway);
-
-/* MOBILE */
-noBtn.addEventListener("touchstart", (e) => {
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", function(e) {
     e.preventDefault();
-    runAway();
+    moveNo();
 });
 
-yesBtn.addEventListener("click", () => {
+/* YES button */
+yesBtn.addEventListener("click", function() {
     loveText.style.display = "block";
-    yesBtn.style.display = "none";
-    noBtn.style.display = "none";
-    music.
+    document.querySelector(".btn-wrap").style.display = "none";
+    music.play();
+});
+</script>
 
+</body>
+</html>
 
