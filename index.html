@@ -28,7 +28,7 @@ body {
     width: 90%;
     max-width: 360px;
     box-shadow: 0 0 30px rgba(255,77,109,0.4);
-    z-index: 1;
+    z-index: 2;
 }
 
 h1 {
@@ -39,31 +39,27 @@ p {
     font-size: 18px;
 }
 
-/* Buttons wrapper */
+/* Buttons */
 .btn-wrap {
     margin-top: 20px;
     position: relative;
     height: 60px;
 }
 
-/* YES button */
-#yesBtn {
+button {
     padding: 14px 28px;
     font-size: 18px;
     border-radius: 30px;
     border: none;
     cursor: pointer;
+}
+
+#yesBtn {
     background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
     color: white;
 }
 
-/* NO button */
 #noBtn {
-    padding: 14px 28px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
     background: #333;
     color: #aaa;
     position: absolute;
@@ -79,12 +75,37 @@ p {
     line-height: 1.6;
     font-size: 16px;
 }
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    color: #ff4d6d;
+    font-size: 18px;
+    animation: floatUp 6s linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.6);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh) scale(1.2);
+        opacity: 0;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- Music -->
+<!-- 🎵 Background Music -->
 <audio id="bgMusic" loop>
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6c1fd6a9b6.mp3" type="audio/mpeg">
 </audio>
@@ -131,8 +152,23 @@ yesBtn.addEventListener("click", function() {
     document.querySelector(".btn-wrap").style.display = "none";
     music.play();
 });
+
+/* Floating hearts generator */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 7000);
+}
+
+setInterval(createHeart, 400);
 </script>
 
 </body>
 </html>
-
