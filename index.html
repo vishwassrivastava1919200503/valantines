@@ -6,7 +6,9 @@
 <title>Will You Be My Girlfriend?</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -20,6 +22,7 @@ body {
     color: #fff;
 }
 
+/* Card */
 .card {
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
@@ -42,25 +45,21 @@ p {
     margin-bottom: 25px;
 }
 
-.buttons {
-    position: relative;
-    height: 100px;
-}
-
+/* Buttons */
 button {
     padding: 14px 28px;
     font-size: 18px;
     border-radius: 30px;
     border: none;
     cursor: pointer;
-    position: absolute;
     transition: 0.3s ease;
+    user-select: none;
 }
 
 #yesBtn {
     background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
     color: white;
-    left: 30px;
+    margin-right: 15px;
 }
 
 #yesBtn:hover {
@@ -71,9 +70,10 @@ button {
 #noBtn {
     background: #333;
     color: #aaa;
-    right: 30px;
+    position: fixed; /* KEY FIX */
 }
 
+/* Love text */
 #loveText {
     display: none;
     margin-top: 20px;
@@ -90,11 +90,12 @@ button {
 
 /* Floating hearts */
 .heart {
-    position: absolute;
+    position: fixed;
     color: #ff4d6d;
     font-size: 18px;
     animation: floatUp 6s linear infinite;
     opacity: 0.7;
+    pointer-events: none;
 }
 
 @keyframes floatUp {
@@ -107,7 +108,7 @@ button {
 
 <body>
 
-<!-- 🎵 Romantic Background Music -->
+<!-- 🎵 Background Music -->
 <audio id="bgMusic" loop>
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6c1fd6a9b6.mp3" type="audio/mpeg">
 </audio>
@@ -116,7 +117,7 @@ button {
     <h1>Happy Valentine’s 💖</h1>
     <p>Will you be my girlfriend?</p>
 
-    <div class="buttons">
+    <div>
         <button id="yesBtn">Yes ❤️</button>
         <button id="noBtn">No 🙈</button>
     </div>
@@ -134,9 +135,13 @@ const yesBtn = document.getElementById("yesBtn");
 const loveText = document.getElementById("loveText");
 const music = document.getElementById("bgMusic");
 
+/* Initial NO button position */
+noBtn.style.top = "55%";
+noBtn.style.left = "55%";
+
 function moveNoButton() {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
@@ -151,7 +156,7 @@ yesBtn.addEventListener("click", () => {
     music.play();
 });
 
-/* Floating hearts */
+/* Floating hearts generator */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -167,3 +172,4 @@ setInterval(createHeart, 400);
 
 </body>
 </html>
+
